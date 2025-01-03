@@ -12,7 +12,7 @@ import {
 export function ClientForm() {
   return (
     <>
-      <form className="w-96 m-auto grid-cols-2">
+      <form className="w-96 m-auto grid-cols-2 bg-yellow-500 p-7 rounded">
         <div>
           <Label htmlFor="user_name">Full Name</Label>
           <Input
