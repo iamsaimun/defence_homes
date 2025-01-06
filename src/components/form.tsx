@@ -1,3 +1,6 @@
+"use client";
+import { validateForm } from "@/lib/definition";
+import { useActionState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -8,11 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { Loader } from "lucide-react";
 
 export function ClientForm() {
+  const [state, action, pending] = useActionState(validateForm, undefined);
   return (
     <>
-      <form className="max-w-sm m-auto grid gap-4 bg-yellow-400 p-7 rounded-lg">
+      <form
+        action={action}
+        className="max-w-sm m-auto grid gap-4 bg-yellow-400 p-7 rounded-lg"
+      >
         <div>
           <Label htmlFor="user_name">Full Name</Label>
           <Input
@@ -21,6 +29,7 @@ export function ClientForm() {
             id="user_name"
             placeholder="Your Full Name"
           />
+          {state?.errors?.full_name}
         </div>
         <div>
           <Label htmlFor="phone">Phone</Label>
@@ -30,6 +39,7 @@ export function ClientForm() {
             id="phone"
             placeholder="Your Phone Number"
           />
+          {state?.errors?.phone}
         </div>
         <div>
           <Label htmlFor="designation">Designation</Label>
@@ -39,6 +49,7 @@ export function ClientForm() {
             id="designation"
             placeholder="Your Designation"
           />
+          {state?.errors?.designation}
         </div>
         <div>
           <Label htmlFor="interested_in">Interested In</Label>
@@ -52,9 +63,22 @@ export function ClientForm() {
             </SelectContent>
           </Select>
         </div>
-        <Button role="button" className="w-full" variant="default">
-          Submit
-        </Button>
+
+        {pending ? (
+          <Button role="button" className="w-full" variant="default"></Button>
+        ) : (
+          <Button role="button" className="w-full" variant="default">
+            {pending ? (
+              <>
+                <Loader className="animate-spin" />
+                Please Wait
+              </>
+            ) : (
+              "Submit"
+            )}
+          </Button>
+        )}
+        <div>{state?.success}</div>
       </form>
     </>
   );
