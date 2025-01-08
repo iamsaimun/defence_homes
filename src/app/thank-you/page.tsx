@@ -5,7 +5,7 @@ export default function ThankYouPage() {
   return (
     <>
       <main>
-        <section></section>
+        <section>Thanks You ❤ . We will Contact you Soon 😊</section>
         <section>
           <Link href="/">
             <Button variant="default">Back to Homepage</Button>
